@@ -106,6 +106,114 @@ function stopBubble(e)
 	//**************************************************声明对象时选择某个对象作为原型***********************************************//
 
 	//*************************************************跨浏览器的的事件处理对象***********************************************//
+	//event是浏览器或用户自身的执行的动作，事件处理程序就是处理事件的函数
 	var EventUtil={
-		
+		addHandler:function(element,type,handler){//添加事件
+			if(element.addEventListener){
+				element.addEventListener(type,handler,false)//事件处理程序，type[事件]，handler[函数],false[冒泡阶段调用]
+			}else if(element.attachEvent){
+				element.attachEvent("on"+type,handler)//ie写法，时间前面加on
+			}else{
+				element["on"+type]=handler;
+			}
+		},
+
+		removeHandler:function(element,type,handler){
+			if(element.removeEventListener){
+				element.removeEventListener(type,handler,false)
+			}else if(element.detachEvent){
+				element.detachEvent("on"+type,handler)
+			}else{
+				element["on"+type]=null;
+			}
+		},
+
+		getEvent:function(event){//获取事件对象,event对象包含与创建他的特定事件的属性和方法
+			return event?event:window.event;
+		},
+
+		getTarget:function(){
+			return event.target||event.srcElement;
+		},
+
+		preventDefault:function(event){//阻止默认事件
+			if(event.preventDefault){
+				event.preventDefault();
+			}else{
+				event.returnValue=false;
+			}
+		},
+
+		stopPropagation:function(event){//阻止事件冒泡
+			if(event.stopPropagation){
+				event.stopPropagation();
+			}else{
+				event.cancelBubble = true;
+			}
+		},
+
 	}
+//*************************************************事件委托***********************************************//
+	// 结构 <ul id="mylinks">
+	// 		<li id="1">1</li>
+	// 		<li id="2">2</li>
+	// 		<li id="3">3</li>
+	// 	</ul>
+	var list = document.getElementById("myLinks")
+	EventUtil.addHandler(list,"click",function(event){
+		event = EventUtil.getEvent(event)
+		var target = EventUtil.getTarget(event);
+		switch(target.id){
+			case "1":
+			break;
+			case "2":
+			break;
+			case "3":
+			break;
+		}
+	})
+
+//*************************************************事件委托***********************************************//
+
+//************************************************原生ajax***********************************************//
+//get请求
+function ajax(){
+	var xmlHttpReq= null;
+	if(window.ActiveXObject){
+		xmlHttpReg= new Active XObject("Microsoft.XMLHTTP")//IE5 6
+	}else if(window.XMLHttpRequest){
+		xmlHttpReq= new XMLHttpRequest();//实例化XHR对象
+	}
+
+	xmlHttpReq.open("GET","test.php",true);//使用open方法设置http请求的方式，URL和异步
+	xmlHttpReq.onreadystatechange=RequestCallBack;//设置回调函数,接收到请求会自动调用
+	xmlHttpReq.send(null)//get方法不传输数据
+	function RequestCallBack(){//只要接收到响应就会调用，不管返回的是不是成功，所以需要加入判断
+		if(xmlHttpReq.readyState == 4){
+			if(xmlHttpReq.status == 200){
+				document.getElementById("resText").innerHTML=xmlHttpReq.responseText;//将返回的数据加入到dom中
+			}
+		}
+	}
+}
+//post请求
+function postajax(){
+	var xmlHttpReq= null;
+	if(window.ActiveXObject){
+		xmlHttpReg= new Active XObject("Microsoft.XMLHTTP")//IE5 6
+	}else if(window.XMLHttpRequest){
+		xmlHttpReq= new XMLHttpRequest();//实例化XHR对象
+	}
+	xmlHttpReq.open("POST","test.php")
+	var data=//表单元素的值
+	xmlHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+	xmlHttpReq.send(data);
+	xmlHttpReq.onreadystatechange=RequestCallBack;
+	function RequestCallBack(){//只要接收到响应就会调用，不管返回的是不是成功，所以需要加入判断
+		if(xmlHttpReq.readyState == 4){
+			if(xmlHttpReq.status == 200){
+				document.getElementById("resText").innerHTML=xmlHttpReq.responseText;//将返回的数据加入到dom中
+			}
+		}
+	}
+}

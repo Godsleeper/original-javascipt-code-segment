@@ -180,7 +180,7 @@ function stopBubble(e)
 function ajax(){
 	var xmlHttpReq= null;
 	if(window.ActiveXObject){
-		xmlHttpReg= new Active XObject("Microsoft.XMLHTTP")//IE5 6
+		xmlHttpReg= new ActiveXObject("Microsoft.XMLHTTP")//IE5 6
 	}else if(window.XMLHttpRequest){
 		xmlHttpReq= new XMLHttpRequest();//实例化XHR对象
 	}
@@ -217,3 +217,42 @@ function postajax(){
 		}
 	}
 }
+//************************************************原生ajax***********************************************//
+
+//************************************************创建对象的各种方法***********************************************//
+//工厂模式
+function createObject(name,age,job){
+	var person=new Object();
+	person.name=name;
+	person.age=age;
+	person.job=job;
+	person.sayname=function(){
+		alert(this.name)//this的执行对象是person对象
+	}
+	return person;
+}//缺点 新建的对象都是以object新建的，无法进行识别，不是createObject的实例
+
+//构造函数模式
+function createObject(name,age,job){
+	this.name=name;
+	this.age=age;
+	this.job=job;
+	this.sayName=function(){
+		alert(this.name);
+	}
+}
+  // 使用new操作符经历三个阶段：1.创建新对象
+		// 					 2.构造函数作用域赋给新对象，this作为obj的引用
+		// 					 3.添加属性
+		// 					 4.返回对象
+var personObj=new createObject("xiaoming",16,"student");
+
+//原型模式
+function createObject(name,age,job){
+	createObject.prototype.name="xiaoming"
+	createObject.prototype.age=15;
+	createObject.prototype.job="student";
+	createObject.prototype.sayName=function(){
+		alert(this.name);
+	}
+}//生成的每个实例都不具有方法和属性，但是根据原型链向上找到proto都可以找到同样的属性

@@ -256,3 +256,31 @@ function createObject(name,age,job){
 		alert(this.name);
 	}
 }//生成的每个实例都不具有方法和属性，但是根据原型链向上找到proto都可以找到同样的属性
+
+//********************************不定期更新图片轮播*************************************
+window.onload=function(){
+		var imgbox=document.getElementsByClassName("imgbox")[0];
+		var btnlist=document.getElementsByTagName("li");
+		console.log(imgbox.style.left);
+		function clear(){
+			~function(i){
+				for(var i=0;i<btnlist.length;i++){
+				btnlist[i].className="btn ";
+			}
+		}(i);
+		}
+
+		for(var i=0;i<btnlist.length;i++){
+			~function(i){
+				btnlist[i].setAttribute("title",i);
+				btnlist[i].onclick=function(){
+					clear();
+					var offset=i*(-700)+"px";
+					console.log(offset);
+					imgbox.style.left=offset;
+					this.className+=" active";		
+				}
+			}(i)
+		}
+	}
+//********************************不定期更新图片轮播*************************************

@@ -257,6 +257,25 @@ function createObject(name,age,job){
 	}
 }//生成的每个实例都不具有方法和属性，但是根据原型链向上找到proto都可以找到同样的属性
 
+//组合模式
+function createObject(name,age,job){
+	this.name=name;
+	this.age=age;
+	this.job=job;
+	this.friends={"a","b"}
+}//构造函数模式，给对象绑定每个对象特有的属性
+
+createObject.prototype={
+	sayName:function(){
+		alert(this.name);
+	}
+}//在原型中加入每个对象都会有的属性
+
+Object.defineProperty(createObject.prototype,"contructor",{
+	enumerable:false;
+	value:createObject;//通过for循环找不到这个属性
+})//通过对constructor的处理使他吻合正常的原型对象中的cons属性
+
 //********************************不定期更新图片轮播*************************************
 window.onload=function(){
 		var imgbox=document.getElementsByClassName("imgbox")[0];

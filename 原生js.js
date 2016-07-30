@@ -303,3 +303,60 @@ window.onload=function(){
 		}
 	}
 //********************************不定期更新图片轮播*************************************
+
+//*********************************继承****************************************
+//原型链继承
+function SuperType(){
+	this.property=true;
+}//父类
+
+SuperType.prototype.getSuperType=fucntion(){
+	return this.property;
+}
+
+function SubType(){
+	this.subproperty=false;
+}//子类
+
+SubType.prototype = new SuperType();//使父类的实例对象成为子类的原型对象
+
+SubType.prototype.getSubValue=function(){
+	return this.subproperty;
+}//弊端：修改原型中单属性会改变每一个实例对象的属性，因为这些属性实例对象都是没有的，都要到原型里去找
+
+//经典继承
+function SuperType(name){
+	this.name=name;//可以设置的初始化值
+	this.property=true;//默认的初始化值
+}//父类
+
+function SubType(){
+	SuperType.call(this,"xiaoming");//使用的还是supertype的方法，但是使用call将执行对象改为this。若子类new一个对象执行的就是子类对象
+	this.age=29;
+}//经典继承缺点：方法都在构造函数中，每次实现基类都要重新使用call，就不是函数复用了。
+
+//组合继承
+function SuperType(name){
+	this.name=name;
+	this.colors=["1","2","3"];
+}
+
+SuperType.prototype.sayName = function(){
+	alert(this.name);
+}
+
+function SubType(name,age){
+	SuperType.call(this,name);
+	this.age=age;
+}
+
+SubType.prototype = new SuperType();
+Object.defineProperty(SubType.prototype,"contructor",{
+	value:SubType;
+	enumerable:false;
+})
+
+SubType.prototype.sayAge=function(){
+	alert(this.age);
+}
+

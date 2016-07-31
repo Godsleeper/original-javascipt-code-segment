@@ -18,7 +18,7 @@ function addLoadEvent(func)
 
 
 //*************************************************************通过class获取节点的方法*************************************************
-//IE不支持getElementsByClassNmae所以自己封装一个
+//IE不支持getElementsByClassNmae所以自 己封装一个
 //该函数传入要找的类名和父级（方便缩小范围，如果不传入就直接使用全局的document）将全局或父级放在变量里，把所有的节点对象都放在数组里面。有可能是全部的，也有可能是你规定了父级下的
 //对该数组进行遍历，如果类名是你传入的，就把它放在另一个准备好的数组中，再把准备好的数组return出去，得到你要找的对应class的节点数组
 function getByClass(clsName,parent){
@@ -359,4 +359,4 @@ Object.defineProperty(SubType.prototype,"contructor",{
 SubType.prototype.sayAge=function(){
 	alert(this.age);
 }
-
+//*********************************继承****************************************

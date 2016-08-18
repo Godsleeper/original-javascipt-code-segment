@@ -206,7 +206,7 @@ function postajax(){
 	}
 	xmlHttpReq.open("POST","test.php")
 	var data=//表单元素的值
-	xmlHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+	xmlHttpReq.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xmlHttpReq.send(data);
 	xmlHttpReq.onreadystatechange=RequestCallBack;
 	function RequestCallBack(){//只要接收到响应就会调用，不管返回的是不是成功，所以需要加入判断
@@ -217,6 +217,63 @@ function postajax(){
 		}
 	}
 }
+//完整封装
+function ajax(options){
+	options=options||{};
+	options.type=(options.type||"GET").toUpperCase();
+	options.dataType=options.dataType||"json";
+	var params=formatParams(options.data);//将json对象转换成url字符串
+	var XHR=null;
+	if(window.XMLHttpRequest){
+		XHR=new XMLHttpRequest();
+	}else{
+		XHR=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	//xhr对象的readystate属性从0-4变化，每个变化对应一个onreadystatechange
+	XHR.onreadystatechange=function(){
+		if(XHR.readyState==4){
+			var status = XHR.status;
+			if(status>=200&&status<300){
+				options.success&&options.success(XHR.responseText);
+			}else{
+				options.fail&&options.fail(status);
+			}
+		}
+	}
+	//发送
+	if(options.type=="GET"){
+		XHR.open("GET",options.url+"?"+params,true);
+		XHR.send(null);
+	}else(options.type=="POST"){
+		XHR.open("POST",options.url,true);
+		XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded");//设置请求头，规定post的方式
+		XHR.send(params);
+	}
+}
+//格式化发送文本,传入一个json对象，传出一个字符串
+function params(data){
+	var arr=[];
+	for(var name in data){
+		arr.push(encodeURIComponent(name)+"="+encodeURIComponent(data[name]));//包含特殊字符，需要编码
+	}
+	arr.push(("result="+Math.random()).replace("."));//拒绝缓存，是一个新的请求
+	return arr.join("&");
+
+}
+
+ajax({
+	url:"/admin/movie/list",
+	type:"POST",
+	data:{name:"a",age:20},
+	dataType:"json",
+	success:function(response){
+		//成功发送了请求，对返回的请求体进行处理
+	}
+	fail:function(status){
+		//失败了，将状态码打印出来
+	}
+
+})
 //************************************************原生ajax***********************************************//
 
 //************************************************创建对象的各种方法***********************************************//
@@ -360,3 +417,6 @@ SubType.prototype.sayAge=function(){
 	alert(this.age);
 }
 //*********************************继承****************************************
+//*********************************跨域方法总结********************************
+//JSONP
+

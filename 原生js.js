@@ -419,4 +419,44 @@ SubType.prototype.sayAge=function(){
 //*********************************继承****************************************
 //*********************************跨域方法总结********************************
 //JSONP
+function jsonp(options){
+	options=options||{};
+	if(!options.url||!options.callback){
+		throw new Error("参数不合法");
+	}
+	//创建script标签并加入
+	var callbackName=('jsonp_'+Math.random()).replace(".","");
+	var oHead = document.getElementsByTagName("head")[0];
+	options.data[options.callback] = callbackName;
+	var params = formatParams(options.data);
+	var oS=document.createElement("script");
+	oHead.appendChild(oS);
+	//创建jsonp回调
+	window.callbackName = function(json){
+		oHead.removeChild(oS);
+		clearTimeout(oS.timer);
+		window.callbackName = null;
+		options.success&&options.success(json);//不用自己定义callback，只需写好success即可
+	}
+
+	oS.src = options.url+'?'+params;
+	//超时处理
+	if(options.time){
+		oS.timer = setTimeout(function(){
+			window.callbackName=null;
+			oHead.removeChild(oS);
+			options.fail&&options.fail({message:"超市"})；
+		},time)
+	}
+	//格式化参数
+	function params(data){
+	var arr=[];
+	for(var name in data){
+		arr.push(encodeURIComponent(name)+"="+encodeURIComponent(data[name]));//包含特殊字符，需要编码
+	}
+	return arr.join("&");
+
+	}
+}
+//window.name
 

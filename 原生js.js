@@ -333,6 +333,17 @@ Object.defineProperty(createObject.prototype,"contructor",{
 	value:createObject;//通过for循环找不到这个属性
 })//通过对constructor的处理使他吻合正常的原型对象中的cons属性
 
+//es6中的构造函数
+class Point{
+	constructor(x,y){
+		this.x=x;
+		this.y=y;
+	}
+	toString(){
+		return '('+this.x+','+this.y+')';
+	}
+}
+
 //********************************不定期更新图片轮播*************************************
 window.onload=function(){
 		var imgbox=document.getElementsByClassName("imgbox")[0];
@@ -458,5 +469,10 @@ function jsonp(options){
 
 	}
 }
-//window.name
-
+//数组检测
+function checkArray(){
+	var arr = [1,2]
+	console.log(arr instanceof Array);
+	console.log(Array.isArray(arr));
+	console.log(Object.prototype.toString.call(arr)=='[object Array]')
+}

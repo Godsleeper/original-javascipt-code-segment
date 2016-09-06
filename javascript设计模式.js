@@ -17,6 +17,7 @@ button.addEventListener('click',function(){
 	loginLayer.style.display = 'block';
 })
 
+
 //通用的惰性单例
 var getSingle =function(obj){
 	var result;//result储存在闭包中,储存了创建函数返回的div，永远不会被销毁
@@ -38,6 +39,7 @@ button.addEventListener('click',function(){
 	var loginLayer = createSingleLoginLayer();
 	loginLayer.style.display = 'block';
 })
+
 
 //发布订阅模式(观察者模式)
 //发布者模型
@@ -75,9 +77,9 @@ var event={
 			}
 		}
 	}
-
-
 }
+
+
 //类型装载器（深拷贝）
 var installEvent = function(eventobj){
 	for(var i in event){
@@ -86,11 +88,28 @@ var installEvent = function(eventobj){
 }
 
 //用例
+//普通
 var usecase = {};
 installEvent(usecase);
 usecase.listen('event1',function(arguments){
 	//订阅了事件的响应
 })
 usecase.trigger('event1',arguments);
-
-
+//ajax
+var login = {}；
+installEvent(login);
+//发布login事件
+$.ajax('url',function(data){
+	login.trigger('event',data)
+})
+//不同组件订阅login事件
+var header = (function(){
+	login.listen('event',function(data){
+		header.setAvatar(data.avatar);//将头像信息传入
+	})
+	return{
+		setAvatar:function(data){//返回一个对象，拥有setAvatar方法
+			console.log(data);
+		}
+	}
+}())

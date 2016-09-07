@@ -108,7 +108,7 @@ var header = (function(){
 		header.setAvatar(data.avatar);//将头像信息传入
 	})
 	return{
-		setAvatar:function(data){//返回一个对象，拥有setAvatar方法
+		setAvatar:function(data){//返回一个对象，拥有setAvatar方法，使用闭包，可以一直存储data
 			console.log(data);
 		}
 	}

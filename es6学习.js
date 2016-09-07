@@ -55,6 +55,11 @@ var getJSON = function(url){
 		xhr.send();
 	}
 }
+getJSON(url).then(function(json){
+	console.log(json);
+},function(error){
+	console.error(error);
+})
 
 
 

@@ -60,6 +60,22 @@ getJSON(url).then(function(json){
 },function(error){
 	console.error(error);
 })
+//[例三]
+//resolve中传入promise对象
+var p1 = new Promise(function(resolve,reject){
+	setTimeout(()=>reject(new Error('fail')),3000)
+})
+
+var p2 = new Promise(function(resolve,reject){
+	setTimeout(()=>reject(p1),1000)
+})
+//then方法
+//1.多个并列回调函数
+$.getJSON(url,callback1,callback2);
+$.getJSON(url)
+	.then(callback1(json){ return json.post})
+		.then(callback2(post){});
+//2.多个回调嵌套
 
 
 

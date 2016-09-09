@@ -70,12 +70,14 @@ var p2 = new Promise(function(resolve,reject){
 	setTimeout(()=>reject(p1),1000)
 })
 //then方法
-//1.多个并列回调函数
-$.getJSON(url,callback1,callback2);
+//1.多个将回调返回的数据继续处理
 $.getJSON(url)
 	.then(callback1(json){ return json.post})
 		.then(callback2(post){});
-//2.多个回调嵌套
+//2.多个异步回调嵌套，与上面的区别，上面的回调不是异步的，会一直等着函数处理，下面的是异步，可以继续执行之后的代码
+$.getJSON(url)
+	.then(callback(json){return getJSON(json.url)})
+		.then(callback2(json.data){})
 
 
 
@@ -126,3 +128,6 @@ var result = array.sort((a,b) => a-b;)
 //=>不可以当作构造函数，因为无法使用new命令
 //=>不可以实用arguments对象，只能用rest参数代替
 //=>不可以使用yield，箭头函数无法用作Generator
+
+//************************************************函数******************************************
+//1.1函数参数的默认值

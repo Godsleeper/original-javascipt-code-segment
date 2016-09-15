@@ -131,3 +131,36 @@ var result = array.sort((a,b) => a-b;)
 
 //************************************************函数******************************************
 //1.1函数参数的默认值
+
+
+//**********************************************class*********************************************
+//1.基本语法
+//ES5写法
+function Point(x,y){
+	this.x=x;
+	this.y=y;
+}
+//公用的原型方法
+Point.prototype.toString()=function(){};
+Point.prototype.toValue()=function(){};
+//或是
+Point.prototype={
+	constructor:function(){},
+	toString:function(){},
+	toValue:function(){}
+}
+//或是
+Object.assign(Point.prototype,{
+	toString:function(){},
+	toValue:function(){}
+})
+//ES6写法
+class Point(){
+	//每个对象独立的构造属性写在这里
+	constructor(x,y){
+		this.x=x;
+		this.y=y;
+	}
+	toString(){}
+	toValue(){}
+}//此时所有方法都不可枚举

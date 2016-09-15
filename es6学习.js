@@ -164,3 +164,35 @@ class Point(){
 	toString(){}
 	toValue(){}
 }//此时所有方法都不可枚举
+
+//1.2 constructor方法
+//类的默认方法，通过new命令生成对象实例时自动调用该方法，一个类必须有constructor方法，如果没有显示定义，会自动默认添加
+//默认返回实例对象（用this构造的对象），也可以返回别的对象
+//实例对象遵守规则：除非显示定义在this上，为每个实例定制属性，否则都定义在原型进行公用。
+//原型的使用
+//构造函数或类==>Object.prototype
+//实例对象==>Object.getPrototypeOf(obj)||p1._proto_
+class Foo{
+	constructor(){
+		return Object.create(null);
+	}
+}
+new Foo() instanceof Foo //false
+
+//1.3 class表达式
+//指代当前类代替this
+const MyClass = class Me{
+	getClassNmae(){
+		return Me.name;
+	}
+}
+//立即执行的class
+let person = new Class{
+	constructor(x){
+		this.x=x;
+	}
+	sayName(){
+		console.log(this.x);
+	}
+}("Tang");
+

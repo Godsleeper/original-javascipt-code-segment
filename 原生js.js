@@ -344,34 +344,6 @@ class Point{
 	}
 }
 
-//********************************不定期更新图片轮播*************************************
-window.onload=function(){
-		var imgbox=document.getElementsByClassName("imgbox")[0];
-		var btnlist=document.getElementsByTagName("li");
-		console.log(imgbox.style.left);
-		function clear(){
-			~function(i){
-				for(var i=0;i<btnlist.length;i++){
-				btnlist[i].className="btn ";
-			}
-		}(i);
-		}
-
-		for(var i=0;i<btnlist.length;i++){
-			~function(i){
-				btnlist[i].setAttribute("title",i);
-				btnlist[i].onclick=function(){
-					clear();
-					var offset=i*(-700)+"px";
-					console.log(offset);
-					imgbox.style.left=offset;
-					this.className+=" active";		
-				}
-			}(i)
-		}
-	}
-//********************************不定期更新图片轮播*************************************
-
 //*********************************继承****************************************
 //原型链继承
 function SuperType(){
@@ -449,7 +421,6 @@ function jsonp(options){
 		window.callbackName = null;
 		options.success&&options.success(json);//不用自己定义callback，只需写好success即可
 	}
-
 	oS.src = options.url+'?'+params;
 	//超时处理
 	if(options.time){
@@ -466,13 +437,12 @@ function jsonp(options){
 		arr.push(encodeURIComponent(name)+"="+encodeURIComponent(data[name]));//包含特殊字符，需要编码
 	}
 	return arr.join("&");
-
 	}
 }
-//数组检测
+//***********************************************数组检测**********************************************
 function checkArray(){
 	var arr = [1,2]
-	console.log(arr instanceof Array);
+	console.log(arr instanceof Array);//多个frame时会报错
 	console.log(Array.isArray(arr));
 	console.log(Object.prototype.toString.call(arr)=='[object Array]')
 }

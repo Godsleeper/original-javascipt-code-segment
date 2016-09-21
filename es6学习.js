@@ -140,6 +140,14 @@ var result = array.sort((a,b) => a-b;)
 
 
 
+//变量的解构
+//1.1 数组的解构==>模式匹配
+var a=1;var b=2;/*==>*/var [a,b]=[1,2];
+var [a,...b]=[1,2,3,4]//b=[2,3,4];
+var [a,...b]=[1]//b=[];
+var [a,b,c]=[1,[1,1],1]//b=[1,1]
+//1.2 
+
 
 //**********************************************class*********************************************
 //1.基本语法
@@ -211,3 +219,29 @@ class Child extends Father{
 	}
 }
 
+//****************************************数据结构******************************************
+//set
+//定义
+var set =new Set([1,2,3]);
+var set =new Set(array);
+[1,2,3,4].map((x)=>set.add(x));
+//转化为数组
+//遍历操作
+//keys()返回键名
+//values()返回键值
+//entries()返回键值对，没有键名键名和键值相同
+//forEach()使用回调函数遍历所有成员
+var array= [...set];
+var array=Array.from(set);
+var array=[...new Set(array)];
+for(let item of set.keys()){
+	array.push(item);
+}
+for(let item of set,values()){
+	array.push(item);
+}
+//实例操作方法
+set.add();
+set.delete();
+set.has();//返回bool
+set.clear();//清空

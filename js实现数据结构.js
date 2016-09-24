@@ -61,18 +61,87 @@ var chosesort=function(array){
 		var _item=i;
 		for(var j=i+1;j<array.length;j++){
 			if(array[_item]>array[j]){
-				console.log(_item);
 				_item=j;
 			}
 		}
 		if(i!=_item){
-			var _temp=_item;
-			_item=i;
-			i=_temp;
+			var _temp=array[_item];
+			array[_item]=array[i];
+			array[i]=array[_temp];
 		}
 	}
 }
 
-var arr=[1,5,3,2,5,6,2];
-chosesort(arr);
-console.log(arr)
+//**************************************************选择排序******************************************
+
+//*****************************************归并排序*****************************************
+
+//****************************************二叉搜索树*******************************************
+function Node(data,left,right){
+	this.data=data;
+	this.left=left;
+	this.right=right;
+}
+
+function BSTree(){
+	this.root=null;
+}
+
+BSTree.prototype.remove=function(data){
+	if(this.root == null){
+		return false;
+	}
+	var currentNode=this.root;
+	var parent=null;
+	while(current!=null&&current.data!=data){
+		parent=currentNode;
+		if(data<current.data){
+			currentNode=currentNode.left;
+		}else{
+			currentNode=currentNode.right;
+		}
+	}
+	if(currentNode=null){
+		return false;
+	}
+
+}
+
+BSTree.prototype.find=function(data){
+	var currentNode=this.root;
+	while(currentNode!=null){
+		if(currentNode.data=data){
+			return currentNode
+		}else if(currentNode.data<data){
+			currentNode=currentNode.left;
+		}else{
+			currentNode=currentNode.right;
+		}
+	}
+	return null;
+};
+
+//***************************************二分查找********************************************
+//非递归
+var twoParts=function(index,array){
+	var low=0;
+	var high=array.length;
+	while(low<=high){
+		mid=Math.floor((low+high)/2);
+		if(index<array[mid]){
+			high=mid-1;
+		}else if(index>array[mid]){
+			low=mid+1;
+		}else{
+			return mid;
+		}
+	}
+	return -1;
+};
+//递归
+var twoPart=function(index,array){
+
+}
+
+var c=twoParts(0,[1,2,3,4,5]);
+console.log(c)

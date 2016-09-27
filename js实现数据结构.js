@@ -78,9 +78,28 @@ var chosesort=function(array){
 //**************************************************选择排序******************************************
 
 //*****************************************归并排序*****************************************
+function merageSort(array){
+	if(array.length==1){
+		return array;
+	}
+	var mid = Math.floor(array.length/2);
+	var left=array.slice(0,mid);
+	var right=array.slice(mid);
+	return merage(merageSort(left),merageSort(right));
+}
 
-
-
+function merage(left,right){
+	var re=[];
+	while(left.length>0&&right.length>0){
+			if(left[0]<right[0]){
+				re.push(left.shift());
+			}else{
+				re.push(right.shift());
+			}
+	}
+	return re.concat(left).concat(right);
+}
+console.log(merageSort([2,4,65,2,4,5,4]))
 
 //*****************************************归并排序*****************************************
 
@@ -99,14 +118,6 @@ function insertSort(array){
 	}
 	return array;
 }
-console.log(insertSort([2,3,5,1,4,6,6]))
-
-
-
-
-
-
-
 //*****************************************直接插入排序*************************************
 
 //****************************************二叉搜索树*******************************************

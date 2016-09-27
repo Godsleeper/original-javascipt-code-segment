@@ -42,7 +42,8 @@
 
 //**************************************************冒泡排序******************************************
 var bublesort = function(array){
-	for(var i=1;i<array.length;i++){
+	var temp=true;
+	for(var i=1;i<array.length&&;i++){
 		for(var j=array.length-1;j>=i;j--){
 			if(array[j-1]>array[j]){
 				var _item=array[j];
@@ -93,6 +94,60 @@ function BSTree(){
 	this.root=null;
 }
 
+
+//插入
+BSTree.prototype.insert=function(data){
+	var node=new Node(data,null,null);
+	if(this.root==null){
+		this.root=node;
+	}else{
+		var current=this.root;
+		var parent;
+		while(true){
+			parent=current;
+			if(data<current.data){
+				current=current.left;
+				if(current==null){
+					parent.left=node;
+					break;
+				}
+			}else{
+				current=current.right;
+				if(current=null){
+					parent.right=node;
+					break;
+				}
+			}
+
+		}
+	}
+}
+//前序遍历
+BSTree.prototype.preorder=function(node){//传入根节点
+  if(node!=null){
+  	console.log(node.data);
+  	this.preorder(node.left);
+  	this.preorder(node.right);
+  }
+}
+//中序遍历
+BSTree.prototype.inorder=function(node){
+	if(node!=null){
+		this.inorder(node.left);
+		console.log(node.data);
+		this.inorder(node.right);
+	}
+}
+//后序便利
+BSTree.prototype.postorder=function(node){
+	if(node!=null){
+		this.postorder(node.left);
+		this.postorder(node.right);
+		console.log(node.data);
+	}
+}
+
+//删除节点
 BSTree.prototype.remove=function(data){
 	if(this.root == null){
 		return false;
@@ -113,6 +168,7 @@ BSTree.prototype.remove=function(data){
 
 }
 
+//查找
 BSTree.prototype.find=function(data){
 	var currentNode=this.root;
 	while(currentNode!=null){
@@ -148,3 +204,4 @@ var twoParts=function(index,array){
 var twoPart=function(index,array){
 
 }
+//***************************************二分查找********************************************

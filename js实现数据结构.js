@@ -43,17 +43,19 @@
 //**************************************************冒泡排序******************************************
 var bublesort = function(array){
 	var temp=true;
-	for(var i=1;i<array.length&&;i++){
+	for(var i=1;i<array.length&&temp;i++){
+		temp=false;
 		for(var j=array.length-1;j>=i;j--){
 			if(array[j-1]>array[j]){
 				var _item=array[j];
 				array[j]=array[j-1];
 				array[j-1]=_item;
+				temp=true;
 			}
 		}
 	}
+	return array;
 }
-
 //**************************************************冒泡排序******************************************
 
 //**************************************************选择排序******************************************
@@ -202,6 +204,20 @@ var twoParts=function(index,array){
 };
 //递归
 var twoPart=function(index,array){
-
+  var low=0;
+  var high=array.length;
+  var mid=Math.floor((low+high)/2);
+  if(index==array[mid]){
+  	return mid;
+  }else if(index<array[mid]){
+  	high=mid-1;
+  	mid=Math.floor((low+high)/2);
+  	arguments.callee(index,array.slice(low,high+1))
+  }else{
+    low=mid+1;
+    mid=Math.floor((low+high)/2);
+    arguments.callee(index,array.slice(low,high+1))
+  }
 }
+
 //***************************************二分查找********************************************

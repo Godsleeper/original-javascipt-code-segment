@@ -259,22 +259,39 @@ var twoPart=function(index,array){
 //***************************************二分查找********************************************
 
 //***************************************链表***********************************************
-function Node(data){
-	this.data=data||0;
-	this.next=null;
+
+
+//***************************************链表***********************************************
+
+//***************************************栈***********************************************
+function Stack(){
+	var items=[];
+	this.push=function(element){
+		items.push(element);
+	}
+	this.pop=function(){
+		return items.pop();
+	}
+	this.peek=function(){
+		return items[items.length-1];
+	}
+	this.isEmpty=function(){
+		return items.length==0;
+	}
+	this.size=function(){
+		return items.length;
+	}
+	this.clear=function(){
+		items.length=0;
+	}
+	this.print=function(){
+		console.log(items.join(","));
+	}
 }
 
-var node1=new Node(1);
-var node2=new Node(2);
-var node3=new Node(3);
-node1.next=node2;
-node2.next=node3;
-
-function display(node){
-   while(node!=null){
-   	console.log(node.data);
-   	node=node.next;
-   }
-}
-
-display(node1)
+var stack =new Stack();
+stack.push(1);
+stack.push(2)
+stack.print();
+var stack2=new Stack();
+stack2.print();

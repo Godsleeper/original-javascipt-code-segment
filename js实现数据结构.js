@@ -288,10 +288,124 @@ function Stack(){
 		console.log(items.join(","));
 	}
 }
+//***************************************栈***********************************************
 
-var stack =new Stack();
-stack.push(1);
-stack.push(2)
-stack.print();
-var stack2=new Stack();
-stack2.print();
+//**************************************队列*********************************************
+//普通队列
+function Quene(){
+	var items=[];
+	this.enquene=function(element){
+		items.push(element);
+	}
+	this.dequene=function(){
+		return items.shift();
+	}
+	this.front=function(){
+		return items[0];
+	}
+	this.isEmpty=function(){
+		return items.length==0;
+	}
+	this.size=function(){
+		return items.length;
+	}
+}
+//优先级队列
+
+//**************************************队列*********************************************
+//**************************************集合*********************************************
+function MySet(){
+	var items={};
+	//判断有无
+	this.has=function(value){
+		return items.hasOwnProperty(value);//或value in items
+	}
+	//添加
+	this.add=function(value){
+		if(!this.has(value)){
+			items[value]=value;
+			return true;
+		}
+		return false;
+	}
+	//删除
+	this.remove=function(value){
+		if(this.has(value)){
+			delete items[value];
+			return true;
+		}
+		return false;
+	}
+	//清空
+	this.clear=function(){
+		items={};
+	}
+	//大小
+	this.size=function(){
+		var count=0;
+		for(var prop in items){
+			if(items.hasOwnProperty(prop)){
+				count++;
+			}
+		}
+		return count;
+	}
+	//返回所有元素
+	this.values=function(){
+		var keys=[];
+		for(var key in items){
+			keys.push(key);
+		}
+		return keys;
+	}
+	//并集
+	this.union=function(otherset){
+		var unionSet=new MySet();
+		var values= this.values();//所有元素组成的数组
+		for(var i=0;i<values.length;i++){
+			unionSet.add(values[i]);
+		}
+		values=otherset.values();
+		for(var i=0;i<values.length;i++){
+			unionSet.add(values[i]);
+		}
+		return unionSet;
+	}
+	//交集
+	this.intersection=function(otherSet){
+		var intersectionSet=new MySet();
+		var values=this.value();
+		for(var i=0;i<values.length;i++){
+			if(otherSet.has(value[i])){
+				intersectionSet.add(value[i]);
+			}
+		}
+		return intersectionSet;
+	}
+	//差集
+	this.difference=function(otherSet){
+	  var differenceSet=new MySet();
+	  var values=this.value();
+	  for(var i=0;i<values.length;i++){
+	  	if(!otherSet.has(values[i])){
+	  		differenceSet.add(values[i]);
+	  	}
+	  }	
+	  return differenceSet;
+	}
+	//子集
+	this.subset=function(parentset){
+		var values=this.value();
+		if(this.size()<parentset.size()){
+			return false;
+		}else{
+			for(var i=0;i<values.length;i++){
+				if(!parentset.has(values[i])){
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+}
+

@@ -1,4 +1,5 @@
-//**************************************************快速排序*****************************************
+//**************************************************排序*****************************************
+//快排
 	var swap=function(array,index1,index2){
 		var aux = array[index1];
 		array[index1]=array[index2];
@@ -38,9 +39,8 @@
 		}
 		return i;
 	}
-//**************************************************快速排序*****************************************
 
-//**************************************************冒泡排序******************************************
+//冒泡排序
 var bublesort = function(array){
 	var temp=true;
 	for(var i=1;i<array.length&&temp;i++){
@@ -56,9 +56,8 @@ var bublesort = function(array){
 	}
 	return array;
 }
-//**************************************************冒泡排序******************************************
 
-//**************************************************选择排序******************************************
+//选择排序
 var chosesort=function(array){
 	for(var i=0;i<array.length-1;i++){
 		var _item=i;
@@ -75,9 +74,7 @@ var chosesort=function(array){
 	}
 }
 
-//**************************************************选择排序******************************************
-
-//*****************************************归并排序*****************************************
+//归并排序
 function merageSort(array){
 	if(array.length==1){
 		return array;
@@ -101,9 +98,8 @@ function merage(left,right){
 }
 console.log(merageSort([2,4,65,2,4,5,4]))
 
-//*****************************************归并排序*****************************************
 
-//*****************************************直接插入排序*************************************
+//直接插入排序
 function insertSort(array){
 	for(var i=1;i<array.length;i++){
 		if(array[i]<array[i-1]){
@@ -118,7 +114,6 @@ function insertSort(array){
 	}
 	return array;
 }
-//*****************************************直接插入排序*************************************
 
 //****************************************二叉搜索树*******************************************
 function Node(data,left,right){
@@ -159,6 +154,7 @@ BSTree.prototype.insert=function(data){
 		}
 	}
 }
+
 //前序遍历
 BSTree.prototype.preorder=function(node){//传入根节点
   if(node!=null){
@@ -182,27 +178,6 @@ BSTree.prototype.postorder=function(node){
 		this.postorder(node.right);
 		console.log(node.data);
 	}
-}
-
-//删除节点
-BSTree.prototype.remove=function(data){
-	if(this.root == null){
-		return false;
-	}
-	var currentNode=this.root;
-	var parent=null;
-	while(current!=null&&current.data!=data){
-		parent=currentNode;
-		if(data<current.data){
-			currentNode=currentNode.left;
-		}else{
-			currentNode=currentNode.right;
-		}
-	}
-	if(currentNode=null){
-		return false;
-	}
-
 }
 
 //查找
@@ -259,6 +234,159 @@ var twoPart=function(index,array){
 //***************************************二分查找********************************************
 
 //***************************************链表***********************************************
+//单向链表
+function LinkedList(){
+	var Node=function(element){
+		this.element=element;
+		this.next=null;
+	}
+	var length=0;
+	var head=null;
+	//添加尾元素
+	this.append=function(element){
+		var node = new Node(element);
+		var current;
+		if(head==null){
+			head=node;
+		}else{
+			current=head;
+			while(current.next){
+				current=current.next;
+			}
+			current.next=node;
+		}
+		length++;
+	};
+	//根据位置移除
+	this.removeAt=function(position){
+		//存在这个位置
+		if(position>-1&&position<length){
+			var current=head;
+			var previous;
+			var index=0;
+			if(position==0){
+				//从位置0开始
+				head=current.next;
+			}else{
+				//从位置1开始
+				while(index++<position){
+					previous=current;
+					current=current.next;
+					index++;
+				}
+				previous.next=current.next;
+			}
+			length--;
+			return current.element;
+		}else{
+			return null;
+		}
+	};
+
+	//任意位置插入
+	this.insert=function(position,element){
+		if(position>=0&&position<=length){
+			var node=new Node(element);
+			var current=head;
+			var previous=null;
+			var index=0;
+			if(position==0){
+				//从位置0添加
+				node.next=current;
+				head=node;
+			}else{
+				//从位置1开始
+				while(index++<position){
+					previous=current;
+					current=current.next;
+				}
+				node.next=current;
+				previous.next=node;
+			}
+			length++;
+			return true;
+		}else{
+			return false;
+		}
+	};
+
+	//打印所有链表的值
+	this.toString=function(){
+		var current=head;
+		var string="";
+		while(current){
+			string+=current.element;
+			current=current.next;
+		}
+		return string;
+	};
+	//查找指定元素的位置
+	this.indexOf=function(element){
+		var current=head;
+		var index=0;
+		while(current){
+			if(element==current.element){
+				return index;
+			}
+			current=current.next;
+			index++;
+		}
+		return -1;
+	};
+	//反转整个链表
+	this.reverse=function(){
+		var next=null;
+		var prev=null;
+		var current=head;
+		while(current){
+			next=current.next;
+			current.next=prev;
+			prev=current;
+			current=next;
+		}
+		head=prev;
+		return prev;
+	}
+	//根据值删除
+	this.remove=function(element){
+		var index=this.indexOf(element);
+		return this.removeAt(index);
+	};
+
+	//判断是否为空
+	this.isEmpty=function(){
+		return length==0;
+	};
+
+	//返回长度
+	this.size=function(){
+		return length;
+	};
+
+	//返回头指针
+	this.getHead=function(){
+		return head;
+	}
+};
+
+//双向链表
+function DoublyLinkedList(){
+	var Node=function(element){
+		this.element=element;
+		this.prev=null;
+		this.next=null
+	};
+	var length=0;
+	var head=null;
+	var tail=null;
+	
+	this.insert=function(){
+		
+	}
+};
+
+
+
 
 
 //***************************************链表***********************************************
@@ -408,4 +536,3 @@ function MySet(){
 		}
 	}
 }
-

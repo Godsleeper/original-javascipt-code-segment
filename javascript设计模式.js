@@ -41,12 +41,12 @@ button.addEventListener('click',function(){
 })
 
 
-//发布订阅模式(观察者模式)
+//*******************************************************发布订阅模式(观察者模式)************************************************
 //发布者模型
 var event={
 	clientList:[],//缓存列表
 	listen:function(key,fn){
-		if(!this.clientList[key]{
+		if(!this.clientList[key]){
 			this.clientList[key]=[];//判断某个事件的订阅列表是不是空的，如果是空的，就新建一个列表
 		}
 		this.clientList[key].push(fn);//将订阅的事件存入缓存列表
@@ -96,7 +96,7 @@ usecase.listen('event1',function(arguments){
 })
 usecase.trigger('event1',arguments);
 //ajax
-var login = {}；
+var login = {};
 installEvent(login);
 //发布login事件
 $.ajax('url',function(data){
@@ -113,3 +113,20 @@ var header = (function(){
 		}
 	}
 }())
+
+//*************************************策略模式*******************************************
+var strategyPool={
+	"A":function(data){
+		return data*1;
+	},
+	"B":function(data){
+		return data*2;
+	},
+	"C":function(data){
+		return data*3;
+	}
+}
+
+var strategy=function(strategyName,data){
+	return strategyPool[strategyName](data);
+}

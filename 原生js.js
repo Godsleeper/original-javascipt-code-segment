@@ -446,3 +446,4 @@ function checkArray(){
 	console.log(Array.isArray(arr));
 	console.log(Object.prototype.toString.call(arr)=='[object Array]')
 }
+//***********************************************数组检测**********************************************
